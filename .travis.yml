@@ -1,5 +1,3 @@
 language: java
-jdk:
-    - opemjdk7
 script:
     gradle test
