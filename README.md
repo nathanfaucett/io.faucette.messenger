@@ -1,4 +1,4 @@
-io.faucette.messenger[![Build Status](https://travis-ci.org/nathanfaucett/io.faucette.messenger.svg?branch=master)](https://travis-ci.org/nathanfaucett/io.faucette.messenger)
+io.faucette.messenger [![Build Status](https://travis-ci.org/nathanfaucett/io.faucette.messenger.svg?branch=master)](https://travis-ci.org/nathanfaucett/io.faucette.messenger)
 =======
 
 simple socket like messenger for java
