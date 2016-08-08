@@ -8,37 +8,12 @@ import org.junit.*;
 import org.json.JSONObject;
 
 
-class TestAdapter implements Adapter {
-    public TestAdapter socket;
-    public Callback message;
-
-    public TestAdapter() {
-        socket = null;
-        message = null;
-    }
-
-    public void addMessageListener(Callback callback) {
-        message = callback;
-    }
-    public void onMessage(String data) {
-        message.call(data);
-    }
-    public void postMessage(String data) {
-        socket.onMessage(data);
-    }
-}
-
-
 public class MessengerTest {
     @Test public void testMessenger() {
-        TestAdapter server = new TestAdapter();
-        TestAdapter client = new TestAdapter();
+        ServerClient serverClient = SimpleAdapter.createServerClient();
 
-        server.socket = client;
-        client.socket = server;
-
-        Messenger serverMessenger = new Messenger(server);
-        Messenger clientMessenger = new Messenger(client);
+        Messenger serverMessenger = new Messenger(serverClient.server);
+        Messenger clientMessenger = new Messenger(serverClient.client);
 
         Callback callback = new Callback() {
             @Override
