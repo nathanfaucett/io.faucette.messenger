@@ -16,9 +16,6 @@ version = "0.0.1"
 
 description = "java messenger package"
 
-targetCompatibility = "1.7"
-sourceCompatibility = "1.7"
-
 
 // In this section you declare where to find the dependencies of your project
 repositories {
