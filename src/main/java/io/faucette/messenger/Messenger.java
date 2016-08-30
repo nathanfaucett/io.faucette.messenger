@@ -54,7 +54,7 @@ public class Messenger {
                     public void call(JSONObject error, JSONObject data) {
                         adapter.postMessage(
                             "{" +
-                                "\"id\": "+ finalId + "," +
+                                "\"id\": \""+ finalId + "\"," +
                                 "\"error\": "+ (error != null ? error.toString() : "null") + "," +
                                 "\"data\": "+ (data != null ? data.toString() : "null") +
                             "}"
@@ -74,7 +74,7 @@ public class Messenger {
 
         _adapter.postMessage(
             "{" +
-                "\"id\": "+ id +"," +
+                "\"id\": \""+ id +"\"," +
                 "\"name\": \""+ name +"\"," +
                 "\"data\": "+ (data != null ? data.toString() : "null") +
             "}"
@@ -86,7 +86,7 @@ public class Messenger {
 
         _adapter.postMessage(
             "{" +
-                "\"id\": "+ id +"," +
+                "\"id\": \""+ id +"\"," +
                 "\"name\": \""+ name +"\"," +
                 "\"data\": "+ (data != null ? data.toString() : "null") +
             "}"
