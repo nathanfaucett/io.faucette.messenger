@@ -10,8 +10,8 @@ import java.util.HashMap;
 
 public class Messenger {
     private static int _MESSENGER_ID = 0;
-    private int _id;
     private int _MESSAGE_ID = 0;
+    private String _id;
     private Adapter _adapter;
     private HashMap<String, Callback> _callbacks;
     private HashMap<String, ArrayList<Callback>> _listeners;
@@ -20,7 +20,7 @@ public class Messenger {
     public Messenger(Adapter adapter) {
         final Messenger _this = this;
 
-        _id = Messenger._MESSENGER_ID++;
+        _id = new Integer(Messenger._MESSENGER_ID++).toString(36);
         _adapter = adapter;
         _callbacks = new HashMap<String, Callback>();
         _listeners = new HashMap<String, ArrayList<Callback>>();
@@ -66,7 +66,7 @@ public class Messenger {
     }
 
     public void emit(String name, JSONObject data, Callback callback) throws JSONException {
-        String id = Integer.toString(_id, 36) + "-" + Integer.toString(_MESSAGE_ID++, 36);
+        String id = _id + "-" + Integer.toString(_MESSAGE_ID++, 36);
 
         if (callback != null) {
             _callbacks.put(id, callback);
@@ -82,7 +82,7 @@ public class Messenger {
     }
 
     public void emit(String name, JSONObject data) throws JSONException {
-        String id = Integer.toString(_id, 36) + "-" + Integer.toString(_MESSAGE_ID++, 36);
+        String id = _id + "-" + Integer.toString(_MESSAGE_ID++, 36);
 
         _adapter.postMessage(
             "{" +
