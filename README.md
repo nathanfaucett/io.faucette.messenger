@@ -19,7 +19,7 @@ public interface Adapter {
 Messenger messenger = new Messenger(new Adapter());
 
 // callback optional
-messenger.emit("message", new JSONObject("{\"data\": \"data\"}"), new Callback() {
+messenger.send("message", new JSONObject("{\"data\": \"data\"}"), new Callback() {
     @Override
     public void call(JSONObject error, JSONObject data) {
         // check if error is not null and do something with json data

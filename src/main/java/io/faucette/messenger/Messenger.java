@@ -49,12 +49,12 @@ public class Messenger {
                 final String finalId = id;
                 final Adapter adapter = _adapter;
 
-                _emit((JSONObject) message.get("data"), _listeners.get(name), new Callback() {
+                _send((JSONObject) message.get("data"), _listeners.get(name), new Callback() {
                     @Override
                     public void call(JSONObject error, JSONObject data) {
                         adapter.postMessage(
                             "{" +
-                                "\"id\": "+ finalId + "," +
+                                "\"id\": \""+ finalId + "\"," +
                                 "\"error\": "+ (error != null ? error.toString() : "null") + "," +
                                 "\"data\": "+ (data != null ? data.toString() : "null") +
                             "}"
@@ -65,7 +65,7 @@ public class Messenger {
         }
     }
 
-    public void emit(String name, JSONObject data, Callback callback) throws JSONException {
+    public void send(String name, JSONObject data, Callback callback) throws JSONException {
         String id = _id + "-" + Integer.toString(_MESSAGE_ID++, 36);
 
         if (callback != null) {
@@ -74,19 +74,19 @@ public class Messenger {
 
         _adapter.postMessage(
             "{" +
-                "\"id\": "+ id +"," +
+                "\"id\": \""+ id +"\"," +
                 "\"name\": \""+ name +"\"," +
                 "\"data\": "+ (data != null ? data.toString() : "null") +
             "}"
         );
     }
 
-    public void emit(String name, JSONObject data) throws JSONException {
+    public void send(String name, JSONObject data) throws JSONException {
         String id = _id + "-" + Integer.toString(_MESSAGE_ID++, 36);
 
         _adapter.postMessage(
             "{" +
-                "\"id\": "+ id +"," +
+                "\"id\": \""+ id +"\"," +
                 "\"name\": \""+ name +"\"," +
                 "\"data\": "+ (data != null ? data.toString() : "null") +
             "}"
@@ -131,7 +131,7 @@ public class Messenger {
         }
     }
 
-    private void _emit(JSONObject data, ArrayList<Callback> listenerCallbacks, Callback callback) {
+    private void _send(JSONObject data, ArrayList<Callback> listenerCallbacks, Callback callback) {
         final Index index = new Index();
         final ArrayList<Callback> finalListenerCallbacks = listenerCallbacks;
         final Callback finalCallback = callback;

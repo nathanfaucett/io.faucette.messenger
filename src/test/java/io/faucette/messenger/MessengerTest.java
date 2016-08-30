@@ -24,7 +24,7 @@ public class MessengerTest {
         };
 
         clientMessenger.on("test", callback);
-        serverMessenger.emit("test", new JSONObject("{\"data\": \"data\"}"));
+        serverMessenger.send("test", new JSONObject("{\"data\": \"data\"}"));
         clientMessenger.off("test", callback);
     }
 }
