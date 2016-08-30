@@ -94,8 +94,6 @@ public class Messenger {
     }
 
     public void on(String name, Callback callback) {
-        System.out.println(name);
-
         if (callback != null) {
             ArrayList<Callback> listenerCallbacks;
 
