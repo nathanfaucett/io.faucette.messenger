@@ -9,6 +9,11 @@ description = "java messenger package"
 mainClassName = "io.faucette.messenger.Main"
 
 
+compileJava {
+  sourceCompatibility = 1.7
+  targetCompatibility = 1.7
+}
+
 repositories {
     jcenter()
 }
