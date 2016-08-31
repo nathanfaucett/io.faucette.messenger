@@ -1,10 +1,12 @@
-apply plugin: 'java'
+apply plugin: "java"
+apply plugin: "application"
 
 
 group = "io.faucette.messenger"
 version = "0.0.1"
 
 description = "java messenger package"
+mainClassName = "io.faucette.messenger.Main"
 
 
 repositories {
@@ -12,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.json:json:20140107'
-    compile 'org.slf4j:slf4j-api:1.7.21'
-    testCompile 'junit:junit:4.12'
+    compile "org.json:json:20140107"
+    compile "org.slf4j:slf4j-api:1.7.21"
+    testCompile "junit:junit:4.12"
 }

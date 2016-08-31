@@ -10,8 +10,8 @@ import some.adapter.Adapter;
 /*
 public interface Adapter {
     public void addMessageListener(Callback callback);
-    public void onMessage(String data);
-    public void postMessage(String data);
+    public void onMessage(JSONObject data);
+    public void postMessage(JSONObject data);
 }
 */
 
