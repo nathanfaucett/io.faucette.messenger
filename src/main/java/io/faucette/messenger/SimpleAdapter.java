@@ -16,10 +16,10 @@ public class SimpleAdapter implements Adapter {
     public void addMessageListener(Callback callback) {
         message = callback;
     }
-    public void onMessage(JSONObject data) {
+    public void onMessage(String data) {
         message.call(data);
     }
-    public void postMessage(JSONObject data) {
+    public void postMessage(String data) {
         socket.onMessage(data);
     }
 

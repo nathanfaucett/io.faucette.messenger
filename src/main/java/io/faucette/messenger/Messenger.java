@@ -29,13 +29,14 @@ public class Messenger {
 
         adapter.addMessageListener(new Callback() {
             @Override
-            public void call(JSONObject message) {
-                _this.onMessage(message);
+            public void call(String data) {
+                _this.onMessage(data);
             }
         });
     }
 
-    public void onMessage(JSONObject message) throws JSONException {
+    public void onMessage(String data) throws JSONException {
+        JSONObject message = new JSONObject(data);
         String id = message.getString("id");
 
         if (!message.isNull("name")) {
@@ -49,11 +50,11 @@ public class Messenger {
                     @Override
                     public void call(JSONObject error, JSONObject data) {
                         adapter.postMessage(
-                            new JSONObject("{" +
+                            "{" +
                                 "\"id\": \""+ finalId + "\"," +
                                 "\"error\": "+ (error != null ? error.toString() : "null") + "," +
                                 "\"data\": "+ (data != null ? data.toString() : "null") +
-                            "}")
+                            "}"
                         );
                     }
                 });
@@ -75,22 +76,22 @@ public class Messenger {
         }
 
         _adapter.postMessage(
-            new JSONObject("{" +
+            "{" +
                 "\"id\": \""+ id +"\"," +
                 "\"name\": \""+ name +"\"," +
                 "\"data\": "+ (data != null ? data.toString() : "null") +
-            "}")
+            "}"
         );
     }
     public void send(String name, JSONObject data) throws JSONException {
         String id = _id + "." + Integer.toString(_messageId++, 36);
 
         _adapter.postMessage(
-            new JSONObject("{" +
+            "{" +
                 "\"id\": \""+ id +"\"," +
                 "\"name\": \""+ name +"\"," +
                 "\"data\": "+ (data != null ? data.toString() : "null") +
-            "}")
+            "}"
         );
     }
 
