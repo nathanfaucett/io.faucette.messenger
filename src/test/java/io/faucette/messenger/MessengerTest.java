@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import org.json.JSONObject;
+import org.json.JSONException;
 
 
 public class MessengerTest {
@@ -54,7 +55,6 @@ public class MessengerTest {
             @Override
             public void call(JSONException error, JSONObject data) {
                 index.getAndIncrement();
-                assertEquals(data.toString(), "{\"data\":\"data\"}");
             }
         });
 

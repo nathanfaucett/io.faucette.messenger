@@ -37,34 +37,35 @@ public class Messenger {
 
     public void onMessage(String data) throws JSONException {
         JSONObject message = new JSONObject(data);
-        String id = message.getString("id");
+        String messageId = message.getString("id");
 
         if (!message.isNull("name")) {
-            String name = (String) message.get("name");
+            String name = message.getString("name");
 
             if (_listeners.containsKey(name)) {
-                final String finalId = id;
+                final String id = messageId;
                 final Adapter adapter = _adapter;
 
-                JSONException error = _send((JSONObject) message.get("data"), _listeners.get(name));
+                JSONException error = _send(message.getJSONObject("data"), _listeners.get(name));
                 adapter.postMessage(
                     "{" +
-                        "\"id\": \""+ finalId + "\"," +
+                        "\"id\": \""+ id + "\"," +
                         "\"error\": "+ (error != null ? ("\"" + error.getMessage() + "\"") : "null") + "," +
                         "\"data\": "+ (data != null ? data.toString() : "null") +
                     "}"
                 );
             }
         } else {
-            if (isMatch(id, _id) && _callbacks.containsKey(id)) {
-                Callback callback = _callbacks.get(id);
-                _callbacks.remove(id);
+            if (isMatch(messageId, _id) && _callbacks.containsKey(messageId)) {
+                Callback callback = _callbacks.get(messageId);
+                _callbacks.remove(messageId);
 
-                String error = null;
+                JSONException error = null;
                 if (!message.isNull("error")) {
                     error = new JSONException(message.getString("error"));
                 }
-                callback.call(error, (JSONObject) message.get("data"));
+
+                callback.call(error, message.getJSONObject("data"));
             }
         }
     }
@@ -140,7 +141,7 @@ public class Messenger {
         return error;
     }
 
-    private static boolean isMatch(String messageId, String id) {
-        return messageId.split("\\.")[0] == id;
+    private static boolean isMatch(String messageId, String messengerId) {
+        return messageId.split("\\.")[0].equals(messengerId);
     }
 }

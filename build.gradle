@@ -1,12 +1,10 @@
 apply plugin: "java"
-apply plugin: "application"
 
 
 group = "io.faucette.messenger"
 version = "0.0.1"
-
 description = "java messenger package"
-mainClassName = "io.faucette.messenger.Main"
+
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
