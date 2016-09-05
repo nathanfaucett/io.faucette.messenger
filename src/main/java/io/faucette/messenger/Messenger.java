@@ -46,18 +46,14 @@ public class Messenger {
                 final String finalId = id;
                 final Adapter adapter = _adapter;
 
-                _send((JSONObject) message.get("data"), _listeners.get(name), new Callback() {
-                    @Override
-                    public void call(JSONObject error, JSONObject data) {
-                        adapter.postMessage(
-                            "{" +
-                                "\"id\": \""+ finalId + "\"," +
-                                "\"error\": "+ (error != null ? error.toString() : "null") + "," +
-                                "\"data\": "+ (data != null ? data.toString() : "null") +
-                            "}"
-                        );
-                    }
-                });
+                JSONException error = _send((JSONObject) message.get("data"), _listeners.get(name));
+                adapter.postMessage(
+                    "{" +
+                        "\"id\": \""+ finalId + "\"," +
+                        "\"error\": "+ (error != null ? ("\"" + error.getMessage() + "\"") : "null") + "," +
+                        "\"data\": "+ (data != null ? data.toString() : "null") +
+                    "}"
+                );
             }
         } else {
             if (isMatch(id, _id) && _callbacks.containsKey(id)) {
@@ -124,36 +120,22 @@ public class Messenger {
         }
     }
 
-    private class Index {
-        public int value;
+    private static JSONException _send(JSONObject data, ArrayList<Callback> listenerCallbacks) {
+        JSONException error = null;
 
-        public Index() {
-            value = 0;
-        }
-    }
-
-    private void _send(JSONObject data, ArrayList<Callback> listenerCallbacks, Callback callback) {
-        final Index index = new Index();
-        final ArrayList<Callback> finalListenerCallbacks = listenerCallbacks;
-        final Callback finalCallback = callback;
-
-        Callback next = new Callback() {
-            @Override
-            public void call(JSONObject error, JSONObject data) {
-                if (error != null || index.value == finalListenerCallbacks.size()) {
-                    finalCallback.call(error, data);
-                } else {
-                    int i = index.value;
-                    index.value++;
-                    finalListenerCallbacks.get(i).call(data, this);
-                }
+        for (Callback callback: listenerCallbacks) {
+            try {
+                callback.call(data);
+            } catch(Exception ex) {
+                error = new JSONException(ex.getMessage());
+                break;
             }
-        };
+        }
 
-        next.call(null, data);
+        return error;
     }
 
-    private boolean isMatch(String messageId, String id) {
+    private static boolean isMatch(String messageId, String id) {
         return messageId.split("\\.")[0] == id;
     }
 }

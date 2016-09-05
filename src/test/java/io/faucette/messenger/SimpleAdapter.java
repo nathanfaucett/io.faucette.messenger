@@ -1,9 +1,6 @@
 package io.faucette.messenger;
 
 
-import org.json.JSONObject;
-
-
 public class SimpleAdapter implements Adapter {
     public SimpleAdapter socket;
     public Callback message;
@@ -21,15 +18,5 @@ public class SimpleAdapter implements Adapter {
     }
     public void postMessage(String data) {
         socket.onMessage(data);
-    }
-
-    public static ServerClient createServerClient() {
-        SimpleAdapter client = new SimpleAdapter();
-        SimpleAdapter server = new SimpleAdapter();
-
-        client.socket = server;
-        server.socket = client;
-
-        return new ServerClient(server, client);
     }
 }
