@@ -59,7 +59,12 @@ public class Messenger {
             if (isMatch(id, _id) && _callbacks.containsKey(id)) {
                 Callback callback = _callbacks.get(id);
                 _callbacks.remove(id);
-                callback.call((JSONObject) message.get("data"));
+
+                String error = null;
+                if (!message.isNull("error")) {
+                    error = new JSONException(message.getString("error"));
+                }
+                callback.call(error, (JSONObject) message.get("data"));
             }
         }
     }

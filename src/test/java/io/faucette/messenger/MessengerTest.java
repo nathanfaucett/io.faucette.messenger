@@ -50,8 +50,14 @@ public class MessengerTest {
             }
         };
         clientMessenger.on("message", onServerResponse);
-        serverMessenger.send("message", new JSONObject("{\"data\": \"data\"}"));
+        serverMessenger.send("message", new JSONObject("{\"data\": \"data\"}"), new Callback() {
+            @Override
+            public void call(JSONException error, JSONObject data) {
+                index.getAndIncrement();
+                assertEquals(data.toString(), "{\"data\":\"data\"}");
+            }
+        });
 
-        assertEquals(index.get(), 2);
+        assertEquals(index.get(), 3);
     }
 }

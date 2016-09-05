@@ -21,7 +21,7 @@ Messenger messenger = new Messenger(new Adapter());
 // callback optional
 messenger.send("message", new JSONObject("{\"data\": \"data\"}"), new Callback() {
     @Override
-    public void call(JSONObject error, JSONObject data) {
+    public void call(JSONException error, JSONObject data) {
         // check if error is not null and do something with json data
     }
 });
