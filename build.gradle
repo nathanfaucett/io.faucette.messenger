@@ -1,9 +1,9 @@
 apply plugin: "java"
 
 
-group = "io.faucette.messenger"
+group = "com.github.nathanfaucett"
 version = "0.0.1"
-description = "java messenger package"
+description = "java messenger"
 
 
 sourceCompatibility = 1.7
