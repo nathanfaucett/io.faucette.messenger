@@ -2,7 +2,7 @@ apply plugin: "java"
 
 
 group = "com.github.nathanfaucett"
-version = "0.0.1"
+version = "0.0.2"
 description = "java messenger"
 
 
